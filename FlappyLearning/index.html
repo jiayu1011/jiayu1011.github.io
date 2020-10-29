@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Flappy Bird AI Learning</title>
+</head>
+<body>
+	<div style="position:absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);">
+		<canvas id="flappy" width="500" height="512"></canvas> <br/>
+		<div>
+			<button onclick="speed(60)">x1</button>
+			<button onclick="speed(120)">x2</button>
+			<button onclick="speed(180)">x3</button>
+			<button onclick="speed(300)">x5</button>
+			<button onclick="speed(600)">x10</button>
+			<button onclick="speed(0)">MAX</button>
+			<button onclick="reset()">Reset</button>
+		</div>
+		<div>
+			自定义种群数目：
+			<input id="population" type="text">
+			<button type="button" onclick="define_population()">try</button>
+		</div>
+		<br/>
+		<script src = "Neuroevolution.js"></script>
+		<script src = "game.js"></script>
+	</div>
+</body>
+</html>
