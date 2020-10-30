@@ -282,8 +282,13 @@ Game.prototype.display = function(){
 	});
 }
 
+/**
+ * 自定义种群数目
+ */
 function define_population(){
-	let POPULATION = parseInt(document.querySelector('#population').value);
+	var POPULATION = parseInt(document.querySelector('#population').value);
+	setInterval(output_Training_log, 2000);
+
 	Neuvol = new Neuroevolution({
 		population:POPULATION,
 		network:[2, [2], 1],
@@ -293,6 +298,52 @@ function define_population(){
 	game.update();
 	game.display();
 }
+
+/**
+ * 自定义神经网络结构
+ */
+function define_network(){
+	var network_arr = document.querySelector('#network').value.split(' ');
+	var input_network = [];
+	var hidden_layers = [];
+	var layer_id = 1;
+	input_network.push(parseInt(network_arr[0]));
+	for (let i in network_arr){
+		if(layer_id >0 && layer_id < network_arr.length-1)
+			hidden_layers.push(parseInt(network_arr[layer_id]));
+		layer_id += 1;
+	}
+	input_network.push(hidden_layers);
+	input_network.push(parseInt(network_arr[network_arr.length-1]));
+	console.log(input_network);
+
+
+	setInterval(output_Training_log, 2000);
+	Neuvol = new Neuroevolution({
+		population:50,
+		network:[2, [2], 1],
+	});
+	game = new Game();
+	game.start();
+	game.update();
+	game.display();
+}
+
+/**
+ * 输出训练日志
+ */
+var training_time = 0;
+function output_Training_log(){
+	training_time += 2;
+	let log = document.querySelector('#training_log');
+	log.innerHTML += 'training time: ' + training_time + 's&#10;';
+	log.innerHTML += 'generation: ' + game.generation + '&#10;';
+	log.innerHTML += 'alive/total: ' + game.alives + '/' + Neuvol.options.population + '&#10;';
+	log.innerHTML += 'maxScore: ' + game.maxScore + '&#10;';
+	log.innerHTML += '-------------------------&#10;';
+}
+
+
 
 window.onload = function(){
 	var sprites = {
@@ -313,10 +364,13 @@ window.onload = function(){
 		game.display();
 	}
 
+	setInterval(output_Training_log, 2000);
 
 	loadImages(sprites, function(imgs){
 		images = imgs;
 		start();
 	})
+
+
 
 }

@@ -3,9 +3,39 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Flappy Bird AI Learning</title>
+	<style>
+		#main_div{
+			position:absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%,-50%);
+		}
+		#network_description{
+			margin-top: 0px;
+			font-size: 11px;
+			color: red;
+			display: none;
+		}
+		#network_description p{
+			margin:0px
+		}
+		#log_div{
+			position: absolute;
+			top: 9%;
+			left: 75%;
+		}
+		#training_log{
+			padding-left: 0;
+			height: 520px;
+			width: 300px;
+			resize: none;
+			overflow: scroll;
+		}
+
+	</style>
 </head>
 <body>
-	<div style="position:absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);">
+	<div id="main_div">
 		<canvas id="flappy" width="500" height="512"></canvas> <br/>
 		<div>
 			<button onclick="speed(60)">x1</button>
@@ -15,15 +45,34 @@
 			<button onclick="speed(600)">x10</button>
 			<button onclick="speed(0)">MAX</button>
 			<button onclick="reset()">Reset</button>
+			&nbsp;&nbsp;默认参数--种群数目：50 &nbsp;&nbsp;神经网络结构：[2,[2],1]
 		</div>
 		<div>
 			自定义种群数目：
 			<input id="population" type="text">
 			<button type="button" onclick="define_population()">try</button>
 		</div>
+		<div>
+			自定义神经网络结构：
+			<input id="network" type="text" onfocus="{document.querySelector('#network_description').style.display = 'block'}">
+			<button type="button" onclick="define_network()">try</button>
+			<div id="network_description">
+				<p>神经网络结构输入示例：input_dim   hidden0_dim   hidden1_dim...   output_dim</p>
+				<p>该功能尚未实现..<p/>
+			</div>
+		</div>
+
+
 		<br/>
-		<script src = "Neuroevolution.js"></script>
-		<script src = "game.js"></script>
 	</div>
+
+	<!--训练日志展示-->
+	<div id="log_div">
+		Training Log:
+		<textarea id="training_log"></textarea>
+	</div>
+
+	<script src = "Neuroevolution.js"></script>
+	<script src = "game.js"></script>
 </body>
 </html>
